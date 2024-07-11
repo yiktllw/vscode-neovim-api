@@ -13,7 +13,7 @@ const logger = createLogger(EXT_ID);
 // Store the disposables that need to be disposed of when the extension
 // deactivates and are not affected by the restart command.
 const disposables: vscode.Disposable[] = [];
-export async function activate(context: vscode.ExtensionContext, isRestart = false): Promise<void> {
+export async function activate(context: vscode.ExtensionContext, isRestart = false) {
     if (!isRestart) {
         disposables.push(
             vscode.commands.registerCommand("vscode-neovim.restart", async () => {
@@ -45,6 +45,18 @@ export async function activate(context: vscode.ExtensionContext, isRestart = fal
         const plugin = new MainController(context);
         context.subscriptions.push(plugin);
         await plugin.init();
+        const api = {
+            test() {
+                return "Congratulations! You can use neovim api now. ";
+            },
+            getMode() {
+                return plugin.modeManager.currentMode.name;
+            },
+            onModeChange(callback: () => void) {
+                return plugin.modeManager.onModeChange(callback);
+            },
+        };
+        return api;
     } catch (e) {
         vscode.window
             .showErrorMessage(`[Failed to start nvim] ${e instanceof Error ? e.message : e}`, "Restart")
