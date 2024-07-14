@@ -5,6 +5,8 @@
 
 以下是插件原本的readme :
 
+----------------
+
 <h2 align="center"><img src="./images/icon.png" height="128"><br>VSCode Neovim</h2>
 <p align="center"><strong>VSCode Neovim Integration</strong></p>
 
