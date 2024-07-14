@@ -1,7 +1,7 @@
 这里是由[yiktllw](https://github.com/yiktllw)魔改过的vscode neovim插件，在原插件中添加了供其他vscode插件使用的api: 
 - `test()`: 返回一个字符串。
 - `getMode()`: 获取当前的nvim模式，返回当前模式的全名，如`"visual"`
-- `onModeChage(callback: ()=>void)`: 当nvim的模式改变时，调用函数`calback()`。
+- `onModeChage(callback: ()=>void)`: 当nvim的模式改变时，调用函数`callback()`。
 
 以下是插件原本的readme :
 
