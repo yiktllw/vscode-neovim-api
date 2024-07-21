@@ -1,5 +1,83 @@
 # Change Log
 
+## [1.18.5](https://github.com/vscode-neovim/vscode-neovim/compare/v1.18.4...v1.18.5) (2024-07-20)
+
+
+### Bug Fixes
+
+* Fix multi-byte character selection in Nvim 0.10 blockwise visual ([#2169](https://github.com/vscode-neovim/vscode-neovim/issues/2169)) ([2f68d87](https://github.com/vscode-neovim/vscode-neovim/commit/2f68d87e44f65e114e4061917ff2abbaac0e99de))
+* manually set languageId to buffer filetype for special documents ([#2174](https://github.com/vscode-neovim/vscode-neovim/issues/2174)) ([fad8034](https://github.com/vscode-neovim/vscode-neovim/commit/fad803423adb2ea174cd4a60a100d475c7a260ed))
+
+
+### Refactor
+
+* Improve explanation of Ctrl+key in settings menu ([#2168](https://github.com/vscode-neovim/vscode-neovim/issues/2168)) ([f305226](https://github.com/vscode-neovim/vscode-neovim/commit/f305226eb33dcdb8de5ac7eba6376ff7d72c138e))
+* Improve usability of afterInitConfig option in the settings ([#2167](https://github.com/vscode-neovim/vscode-neovim/issues/2167)) ([fe586e1](https://github.com/vscode-neovim/vscode-neovim/commit/fe586e1a62f618be3ae434dd9076e8ef1acca5c5))
+
+## [1.18.4](https://github.com/vscode-neovim/vscode-neovim/compare/v1.18.3...v1.18.4) (2024-07-14)
+
+
+### Bug Fixes
+
+* Cancel UI-affecting tasks upon disposal ([#2161](https://github.com/vscode-neovim/vscode-neovim/issues/2161)) ([508d6b3](https://github.com/vscode-neovim/vscode-neovim/commit/508d6b3094f06b25ec72a9e39953bf697b88c342))
+
+
+### Refactor
+
+* `pending_updates` -&gt; `/utils` `cmdline_text` -> `/cmdline` ([#2159](https://github.com/vscode-neovim/vscode-neovim/issues/2159)) ([cf62ea4](https://github.com/vscode-neovim/vscode-neovim/commit/cf62ea42c12cecae31c1be931f46312d4734219f))
+
+## [1.18.3](https://github.com/vscode-neovim/vscode-neovim/compare/v1.18.2...v1.18.3) (2024-07-10)
+
+
+### Bug Fixes
+
+* **highlight:** Fix pattern matching of syntax groups ([#2150](https://github.com/vscode-neovim/vscode-neovim/issues/2150)) ([78dc156](https://github.com/vscode-neovim/vscode-neovim/commit/78dc156c453c9e6457c81092c24be7d14b54e0be))
+* **with_insert:** Correct "a" or "i" to enter insert mode ([#2152](https://github.com/vscode-neovim/vscode-neovim/issues/2152)) ([dfa195b](https://github.com/vscode-neovim/vscode-neovim/commit/dfa195bfb1b1d2129294738bf3479efe6a6db5b9))
+
+
+### Documentation
+
+* Add settings and commands section ([#2148](https://github.com/vscode-neovim/vscode-neovim/issues/2148)) ([40d6016](https://github.com/vscode-neovim/vscode-neovim/commit/40d6016b767de976fbda074cd76b8dc9b8f3cb5d))
+* simplify readme ([#2155](https://github.com/vscode-neovim/vscode-neovim/issues/2155)) ([fb33462](https://github.com/vscode-neovim/vscode-neovim/commit/fb33462a40dce6f44f31c0079b3063303887f59e))
+
+
+### Refactor
+
+* Remove debounce time limit for sync mouse selection ([#2153](https://github.com/vscode-neovim/vscode-neovim/issues/2153)) ([af78dc9](https://github.com/vscode-neovim/vscode-neovim/commit/af78dc9cbebd0177b2178f93cfbf6dbc0e3adf6e))
+* Simplify invoking Treesitter parsing and ensure more timely parsing ([#2154](https://github.com/vscode-neovim/vscode-neovim/issues/2154)) ([be2ae6b](https://github.com/vscode-neovim/vscode-neovim/commit/be2ae6b2e68382c7823abb777e7bbb13049d6fb8))
+
+## [1.18.2](https://github.com/vscode-neovim/vscode-neovim/compare/v1.18.1...v1.18.2) (2024-07-07)
+
+
+### Bug Fixes
+
+* rapid cmdline_show/cmdline_hides would not be handled logically ([#2140](https://github.com/vscode-neovim/vscode-neovim/issues/2140)) ([7d65a19](https://github.com/vscode-neovim/vscode-neovim/commit/7d65a19d63cf3ff8453d7ab20e2299037a320b4b))
+
+## [1.18.1](https://github.com/vscode-neovim/vscode-neovim/compare/v1.18.0...v1.18.1) (2024-07-05)
+
+
+### chore
+
+* release 1.18.1 ([8500b65](https://github.com/vscode-neovim/vscode-neovim/commit/8500b65636c7e916d07301de90fa4131bfadfe46))
+
+
+### Features
+
+* Add progress indicator for layout sync ([#2137](https://github.com/vscode-neovim/vscode-neovim/issues/2137)) ([81bcdab](https://github.com/vscode-neovim/vscode-neovim/commit/81bcdabff59784fc5fb8de0ddbea648fbb305139))
+
+## [1.18.0](https://github.com/vscode-neovim/vscode-neovim/compare/v1.17.2...v1.18.0) (2024-07-02)
+
+
+### Features
+
+* **buffer:** sync dirty buffer state ([#2127](https://github.com/vscode-neovim/vscode-neovim/issues/2127)) ([61f4e4f](https://github.com/vscode-neovim/vscode-neovim/commit/61f4e4f842d7a7a559b60e7e82f3acb26c908abb))
+* Integrate BufWriteCmd for "write" command ([#2116](https://github.com/vscode-neovim/vscode-neovim/issues/2116)) ([8606eb1](https://github.com/vscode-neovim/vscode-neovim/commit/8606eb183a420223c0fc102639b8b3ad753cfecb))
+
+
+### Refactor
+
+* Use labeled tuple elements for event data types ([#2129](https://github.com/vscode-neovim/vscode-neovim/issues/2129)) ([08e973d](https://github.com/vscode-neovim/vscode-neovim/commit/08e973d20e93835416c3c5a7bd3a81239c02d213))
+
 ## [1.17.2](https://github.com/vscode-neovim/vscode-neovim/compare/v1.17.1...v1.17.2) (2024-06-15)
 
 

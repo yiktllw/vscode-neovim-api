@@ -209,8 +209,8 @@ function M.get_selections(win)
         -- ignore
       end
     else
-      local start_col = fn.virtcol2col(win, line_1, start_vcol)
-      local end_col = fn.virtcol2col(win, line_1, end_vcol)
+      local start_col = util.virtcol2col(win, line_1, start_vcol)
+      local end_col = util.virtcol2col(win, line_1, end_vcol)
       local start_col_offset = fn.strlen(util.get_char_at(line_1, start_col, buf) or "")
       local end_col_offset = fn.strlen(util.get_char_at(line_1, end_col, buf) or "")
       local range = vim.lsp.util.make_given_range_params(
@@ -284,13 +284,13 @@ end
 
 --#region Buffer management
 
---- Implements :write and related commands, via buftype=acwrite. #521 #1260
----
+--- 1. Implements :write and related commands, via buftype=acwrite. #521 #1260
+--- 2. Syncs buffer modified status with vscode. #247
 local function set_buffer_autocmd(buf)
   api.nvim_create_autocmd({ "BufWriteCmd" }, {
     buffer = buf,
     callback = function(ev)
-      local current_name = vim.api.nvim_buf_get_name(ev.buf)
+      local current_name = api.nvim_buf_get_name(ev.buf)
       local target_name = ev.match
       local data = {
         buf = ev.buf,
@@ -299,6 +299,15 @@ local function set_buffer_autocmd(buf)
         target_name = target_name,
       }
       vscode.action("save_buffer", { args = { data } })
+    end,
+  })
+  api.nvim_create_autocmd({ "BufModifiedSet" }, {
+    buffer = buf,
+    callback = function(ev)
+      fn.VSCodeExtensionNotify("BufModifiedSet", {
+        buf = ev.buf,
+        modified = vim.bo[ev.buf].mod,
+      })
     end,
   })
 end
@@ -312,12 +321,23 @@ end
 ---@field modifiable boolean
 ---@field bufname string
 ---@field modified boolean
+---@field filetype string|vim.NIL
 
 ---@param data InitDocumentBufferData
 function M.init_document_buffer(data)
   local buf = data.buf
 
-  -- Set bufname first so that the filetype detection can work ???
+  -- 1. Force filetype before setting buffer name and lines, vim.filetype will handle the b:vscode_filetype
+  -- 2. Finally, set the filetype again just in case
+  local force_filetype = function()
+    if data.filetype and data.filetype ~= vim.NIL then
+      api.nvim_buf_set_var(buf, "vscode_filetype", data.filetype)
+      api.nvim_buf_set_option(buf, "filetype", data.filetype)
+    end
+  end
+
+  force_filetype()
+  -- Set bufname before setting lines so that filetype detection can work ???
   api.nvim_buf_set_name(buf, data.bufname)
   api.nvim_buf_set_lines(buf, 0, -1, false, data.lines)
   -- set vscode controlled flag so we can check it neovim
@@ -333,7 +353,8 @@ function M.init_document_buffer(data)
   api.nvim_buf_set_option(buf, "buftype", "acwrite")
   api.nvim_buf_set_option(buf, "buflisted", true)
   api.nvim_buf_set_option(buf, "modifiable", data.modifiable)
-  api.nvim_buf_set_option(buf, "modified", false)
+  api.nvim_buf_set_option(buf, "modified", data.modified)
+  force_filetype()
 
   set_buffer_autocmd(buf)
 end
