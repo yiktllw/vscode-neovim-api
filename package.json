@@ -1,6 +1,6 @@
 {
     "name": "vscode-neovim",
-    "displayName": "VSCode Neovim",
+    "displayName": "VSCode Neovim API",
     "description": "Vim mode for VSCode, powered by Neovim",
     "icon": "images/icon.png",
     "publisher": "asvetliakov",
